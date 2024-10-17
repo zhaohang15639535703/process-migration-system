@@ -2,9 +2,8 @@ mod_name = kstate-api
 obj-m += $(mod_name).o
 
 all:
-	sudo rmmod $(mod_name) || echo
 	make -C /lib/modules/$(shell uname -r)/build M=$(shell pwd) modules
-	sudo insmod $(mod_name).ko
+	sudo insmod $(mod_nam e).ko
 ifdef major
 	sudo mknod /dev/$(mod_name) c $(major) 0 -m 777 || echo
 endif

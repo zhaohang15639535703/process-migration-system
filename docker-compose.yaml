@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  # send
+  client:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-Send
+    image: send-image
+    container_name: client
+    # restart: always
+    volumes:
+      - ./nginx/logs:/var/log/nginx
+    command: ["python", "migrate-send.py", "$(pgrep rec-process)"]
+  # receive
+  server:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-Send
+    image: send-image
+    container_name: client
+    # restart: always
+    volumes:
+      - ./nginx/logs:/var/log/nginx
+    command: ["python", "migrate-receive.py", "$(pgrep rec-process)"]
